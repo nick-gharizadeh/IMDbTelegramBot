@@ -1,13 +1,9 @@
-import telegram
-from telebot.types import ReplyKeyboardRemove
 from telegram import KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, Application, MessageHandler, filters
 from bot_token import token
 import imdb
-import telebot
 
 imdb = imdb.IMDb()
-bot = telebot.TeleBot(token)
 buttons = []
 
 
@@ -35,6 +31,13 @@ async def show_movie_details(update, context):
 
 
 def is_movie_exist_on_keyboard(movie_name):
+    """
+    This function searches for a button in the buttons list to determine if the user has selected a button or not.
+    Each button in the buttons list has its own properties.We want to compare the user's input(movie_name) with text
+    property of keyboard button.
+    :param movie_name:
+    :return bool: Exists or not
+    """
     for button in buttons:
         for button_items in button:
             if button_items.text == movie_name:
