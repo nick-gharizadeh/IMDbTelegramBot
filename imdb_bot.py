@@ -16,9 +16,8 @@ async def start_command(update, context):
 async def reply_message(update, context):
     movie_name = update.message.text
     global buttons
-    if len(buttons) != 0:
-        if is_movie_exist_on_keyboard(movie_name):
-            await show_movie_details(update, context)
+    if is_movie_exist_on_keyboard(movie_name):
+        await show_movie_details(update, context)
     else:
         buttons.clear()
         search = imdb.search_movie(movie_name)
