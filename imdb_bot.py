@@ -1,5 +1,5 @@
 import imdb
-from telegram import KeyboardButton, ReplyKeyboardMarkup
+from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import CommandHandler, Application, MessageHandler, filters
 
 from bot_token import token
@@ -10,7 +10,8 @@ buttons = []
 
 async def start_command(update, context):
     await update.message.reply_text(f'Hi {update.message.chat.first_name}!\nWe\'re glad to have you here! 😉 '
-                                    '\nLet\'s get started with some amazing features! 💛')
+                                    '\nLet\'s get started with some amazing features! 💛\nType something and I will display the results for you.',
+                                    reply_markup=ReplyKeyboardRemove())
 
 
 async def reply_message(update, context):
