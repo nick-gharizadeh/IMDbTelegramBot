@@ -33,8 +33,12 @@ async def show_movie_details(update, context):
     search = imdb.search_movie(name)
     id = search[0].movieID
     movie = imdb.get_movie(id)
-    await context.bot.send_photo(chat_id=update.message.chat_id, photo=movie.get_fullsizeURL(),
-                                 caption=movie.summary())
+    try:
+        await context.bot.send_photo(chat_id=update.message.chat_id, photo=movie.get_fullsizeURL(),
+                                     caption=movie.summary())
+    except:
+        await context.bot.send_photo(chat_id=update.message.chat_id, photo=movie['cover'],
+                                     caption=movie.summary())
 
 
 def is_movie_exist_on_keyboard(movie_name):
