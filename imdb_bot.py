@@ -17,11 +17,17 @@ async def start_command(update, context):
 async def reply_message(update, context):
     movie_name = update.message.text
     global buttons
+    if movie_name == "❌ Close":
+        await update.message.reply_text(f'Type something and I will display the results for you:',
+                                        reply_markup=ReplyKeyboardRemove())
+        buttons.clear()
+        return
     if is_movie_exist_on_keyboard(movie_name):
         await show_movie_details(update, context)
     else:
         buttons.clear()
         search = imdb.search_movie(movie_name)
+        buttons.append([KeyboardButton("❌ Close")])
         for i in range(0, len(search)):
             buttons.append([KeyboardButton(f"🎬 {search[i]}")])
         await update.message.reply_text("Now, select one of these results to show the details:",
